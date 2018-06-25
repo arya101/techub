@@ -1,0 +1,51 @@
+div{
+    display:inline-block;
+}
+.a {
+width:270px;
+height:300px;
+border:3px solid white;
+}
+
+.b {
+width:270px;
+height:300px;
+border:3px solid white;
+}
+
+.c {
+width:270px;
+height:300px;
+border:3px solid white;
+}
+
+.d {
+width:270px;
+height:300px;
+border:3px solid white;
+}
+
+#a1{
+    height:300px;
+    width:270px;
+    
+}
+
+#b1{
+    height:300px;
+    width:270px;
+}
+
+#c1{
+    height:300px;
+    width:270px;
+}
+
+#d1{
+    height:300px;
+    width:270px;
+}
+
+.a:hover, .b:hover, .c:hover, .d:hover{
+border-color:black;
+}

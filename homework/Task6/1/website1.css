@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+.row1, .row3{
+position:fixed;
+left:0;
+right:0;
+height:33.33%;
+padding:2px;
+margin:2px;
+}
+.row1{
+    top:0;
+   
+    border:2px solid black;
+    
+
+}
+
+
+
+.row3{
+    bottom:0;
+    border:2px solid black;
+    
+
+}
+.row2{
+    position:fixed;
+    top:33.33%;
+    height:33.33%;
+    left:0;
+    right:0;
+    border-right:2px solid black;
+    border-left:2px solid black;
+    padding:2px;
+    margin:2px;
+}
+
+
+
+

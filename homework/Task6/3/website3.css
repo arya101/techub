@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+}
+#main{
+    height:100vh;
+    
+
+}
+
+#header{
+    
+    
+    height:20%;
+   
+    border:2px solid black;
+  
+}
+#column1, #column2, #column3{
+    width: 33.33%;
+    float: left;
+    
+    border:2px solid black;
+    
+    
+    height:60%;
+    
+
+}
+#footer{
+    height:20%;
+    border:2px solid black;
+    
+    position:fixed;
+    bottom:0;
+    right:0;
+    left:0;
+    
+
+}
