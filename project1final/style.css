@@ -1,0 +1,148 @@
+body
+{
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+}
+
+*
+{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
+.container
+{
+  text-align: left;
+  margin: auto;
+  max-width: 1400px;
+  display: flex;
+}
+
+.left-side
+{
+  width: 260px;
+  background-color: #eeeeee;
+  padding: 15px 0px 25px 20px;
+}
+
+.right-side
+{
+  width: calc(100% - 260px);
+  background-color: #dcdcdc;
+  padding-left: 25px;
+  padding-top: 65px;
+}
+
+.clear
+{
+  clear: both;
+}
+
+.left-side .title
+{
+  color: #7b7a78;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+.left-side .info
+{
+  margin-bottom: 25px;
+}
+
+.left-side .info span
+{
+  width: 120px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.left-side .info .count
+{
+  text-align: center;
+  min-width: 30px;
+  width: auto;
+  font-weight: normal;
+}
+
+.right-side .table-title
+{
+  background-color: #eeeeee;
+  padding-left: 20px;
+  padding-top: 10px;
+  border-top-left-radius: 3px;
+  padding-bottom: 15px;
+  display: flex;
+}
+
+.right-side .table-title>span
+{
+  width: 50px;
+}
+
+.right-side .table-title .table-header
+{
+  text-align: center;
+  width: calc(100% - 50px);
+}
+
+.right-side .table-title .table-header .button
+{
+  min-width: 75px;
+  min-height: 35px;
+  border-radius: 3px;
+  border: 1px solid #000;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+}
+
+.right-side .table-title .table-header .button.add
+{
+  background-color: #29c25a;
+  border-color: #409963;
+}
+
+.right-side .table-title .table-header .button.remove
+{
+  background-color: #e6373e;
+  border-color: #8e2835;
+}
+
+.right-side .table-title .table-header .button.update
+{
+  background-color: #2177c0;
+  border-color: #396184;
+}
+
+.table
+{
+  background-color: #cccccc;
+}
+
+.table td
+{
+  padding: 5px;
+  text-align: center;
+}
+
+.table td.avg
+{
+  background-color: #008481;
+  color: #fff;
+}
+
+.table td.avg.red
+{
+  background-color: #f00;
+}
+
+.table td.avg.red.yellow
+{
+  background-color: yellow;
+  color: black;
+}
