@@ -73,29 +73,46 @@ window.onload = function () {
     let draw = new Draw();
     draw.drawGame();
 
+    let food = new Array(4);
 
-    class Food {
-        constructor(map, number) {
+    class GenerateFood {
+        constructor(map) {
             this.map = map;
-            this.number = number;
+            
         }
-        generateFood() {
+        gntFood() {
             // Generate a random position for the rows and the columns.
                 let rndX = Math.round(Math.random() * (canvas.width - 4) / 10 - 1);
                 let rndY = Math.round(Math.random() * (canvas.height - 24) / 10 - 1);
             
-
+                let length = food.length;
 
             // We also need to watch so as to not place the food
             // on the same matrix position occupied by a part of the
             // snake's body.
-            while (map[rndX][rndY] === 2 && this.number) {
+            
+            for (let i = 0; i < length; i++){
+            if ( map[rndX][rndY] === 2 ) {
+                
                 rndX = Math.round(Math.random() * (canvas.width - 4) / 10 - 1);
                 rndY = Math.round(Math.random() * (canvas.height - 24) / 10 - 1);
-                this.number--;
+                
+                
             }
+                
+            }
+            
+            console.log(map[rndX][rndY])
+            
 
-            map[rndX][rndY] = 1;
+
+            
+            for (let i = 0; i < food.length; i++) {
+                food[i] = { x: rndX , y: rndY };
+                map[rndX][rndY] = 1;
+
+            }
+            //map[rndX][rndY] = 1;
             return map;
         }
 
@@ -114,9 +131,10 @@ window.onload = function () {
     }
 
     // Add the food
-    let food = new Food(map, 5);
-    map = food.generateFood(map);
-    food.draw();
+    let genFood = new GenerateFood(map, 5);
+    map = genFood.gntFood();
+    genFood.draw();
+    genFood.gntFood()
 
 
 
@@ -124,12 +142,14 @@ window.onload = function () {
 
 
     class GenerateSnake {
+        
 
 
-        generateSnake(map) {
+        generateSnake() {
             // Generate a random position for the row and the column of the head.
             let rndX = Math.round(Math.random() * (canvas.width - 4) / 10 - 1);
             let rndY = Math.round(Math.random() * (canvas.height - 24) / 10 - 1);
+            
 
             // Let's make sure that we're not out of bounds as we also need to 
             // make space to accomodate the other body pieces
@@ -168,18 +188,6 @@ window.onload = function () {
     let generateSnake = new GenerateSnake();
     generateSnake.generateSnake(map);
     generateSnake.draw();
-
-
-}
-
-
-
-
-
-
-
-
-
 
 
 
