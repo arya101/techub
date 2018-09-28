@@ -1,196 +1,155 @@
-window.onload = function () {
+let canvas = document.getElementById("the-game");
+let context = canvas.getContext("2d");
+context.canvas.width = 800;
 
-    let canvas = document.createElement('canvas'),
-        ctx = canvas.getContext('2d'),
-        score = 0,
-        level = 0,
-        direction = 0;
+class Game {
+    constructor(x, y, size, color) {
+        this.score = 0;
+        this.fps = 8;//frames per second
+        this.over = false;
+        this.message = null;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.color = color;
 
-    canvas.width = 204;
-    canvas.height = 224;
+    }
 
-    let body = document.getElementsByTagName('body')[0];
-    body.appendChild(canvas);
+    start() {
+        this.over = false;
+        this.message = null;
+        this.score = 0;
+        this.fps = 8;
+        snake.init();
+        food.set();
+    }
 
+    stop() {
+        this.over = true;
+        this.message = 'GAME OVER - PRESS SPACEBAR';
+    }
 
-    var map = new Array((canvas.width - 4) / 10);
-    for (var i = 0; i < map.length; i++) {
-        map[i] = new Array((canvas.height - 24) / 10);
+    drawBox() {
+        context.fillStyle = this.color;
+        context.beginPath();
+        context.moveTo(this.x - (this.size / 2), this.y - (this.size / 2));
+        context.lineTo(this.x + (this.size / 2), this.y - (this.size / 2));
+        context.lineTo(this.x + (this.size / 2), this.y + (this.size / 2));
+        context.lineTo(this.x - (this.size / 2), this.y + (this.size / 2));
+        context.closePath();
+        context.fill();
+    }
+
+    //drawScore
+
+    drawMessage() {
+        if (this.message !== null) {
+            context.fillStyle = '#00F';
+            context.strokeStyle = '#FFF';
+            context.font = (canvas.height / 10) + 'px Impact';
+            context.textAlign = 'center';
+            context.fillText(game.message, canvas.width / 2, canvas.height / 2);
+            context.strokeText(game.message, canvas.width / 2, canvas.height / 2);
+        }
+    }
+
+    resetCanvas() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
     }
 
 
 
 
+}
+
+
+let game = new Game(10, 10, canvas.width, 'seagreen');
 
 
 
-
-
-    class DrawMain {
-
-        drawMain() {
-            ctx.lineWidth = 2; // Our border will have a thickness of 2 pixels
-            ctx.strokeStyle = 'black'; // The border will also be black
-
-
-            ctx.strokeRect(2, 20, canvas.width - 4, canvas.height - 24);
-
-            ctx.font = '12px sans-serif';
-            ctx.fillText('Score: ' + score + ' - Level: ' + level, 2, 12);
-        }
-
-
+class Snake {
+    constructor(size) {
+        this.size = size;
+        this.x = null;
+        this.y = null;
+        this.color = "#0F0";
+        this.direction = 'left';
+        this.sections = [];
+        this.section = [];
     }
 
-    let drawMain = new DrawMain();
-    drawMain.drawMain();
-
-
-
-    class Draw {
-
-        drawGame() {
-            //Clear the canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            //Draw the border as well as the score
-            drawMain.drawMain();
-
-            // // Start cycling the matrix
-            // for (let x = 0; x < map.length; x++) {
-            //     for (let y = 0; y < map[0].length; y++) {
-            //         if (map[x][y] === 1) {
-            //             ctx.fillStyle = 'black';
-            //             ctx.fillRect(x * 10, y * 10 + 20, 10, 10);
-            //         } else if (map[x][y] === 2) {
-            //             ctx.fillStyle = 'orange';
-            //             ctx.fillRect(x * 10, y * 10 + 20, 10, 10);
-            //         }
-            //     }
-            // }
-        }
-    }
-
-    let draw = new Draw();
-    draw.drawGame();
-
-    let food = new Array(4);
-
-    class GenerateFood {
-        constructor(map) {
-            this.map = map;
-            
-        }
-        gntFood() {
-            // Generate a random position for the rows and the columns.
-                let rndX = Math.round(Math.random() * (canvas.width - 4) / 10 - 1);
-                let rndY = Math.round(Math.random() * (canvas.height - 24) / 10 - 1);
-            
-                let length = food.length;
-
-            // We also need to watch so as to not place the food
-            // on the same matrix position occupied by a part of the
-            // snake's body.
-            
-            for (let i = 0; i < length; i++){
-            if ( map[rndX][rndY] === 2 ) {
-                
-                rndX = Math.round(Math.random() * (canvas.width - 4) / 10 - 1);
-                rndY = Math.round(Math.random() * (canvas.height - 24) / 10 - 1);
-                
-                
-            }
-                
-            }
-            
-            console.log(map[rndX][rndY])
-            
-
-
-            
-            for (let i = 0; i < food.length; i++) {
-                food[i] = { x: rndX , y: rndY };
-                map[rndX][rndY] = 1;
-
-            }
-            //map[rndX][rndY] = 1;
-            return map;
-        }
-
-        draw() {
-            for (let x = 0; x < map.length; x++) {
-                for (let y = 0; y < map[0].length; y++) {
-                    if (map[x][y] === 1) {
-                        ctx.fillStyle = 'black';
-                        ctx.fillRect(x * 10, y * 10 + 20, 10, 10);
-                    }
-
-                }
-            }
-        }
-
-    }
-
-    // Add the food
-    let genFood = new GenerateFood(map, 5);
-    map = genFood.gntFood();
-    genFood.draw();
-    genFood.gntFood()
-
-
-
-    let snake = new Array(3);
-
-
-    class GenerateSnake {
+    init() {
+        this.sections = [];
+        this.direction = 'left';
+        this.x = canvas.width / 2 + this.size / 2;
+        this.y = canvas.height / 2 + this.size / 2;
         
-
-
-        generateSnake() {
-            // Generate a random position for the row and the column of the head.
-            let rndX = Math.round(Math.random() * (canvas.width - 4) / 10 - 1);
-            let rndY = Math.round(Math.random() * (canvas.height - 24) / 10 - 1);
-            
-
-            // Let's make sure that we're not out of bounds as we also need to 
-            // make space to accomodate the other body pieces
-            while ((rndX - snake.length) < 0) {
-                rndX = Math.round(Math.random() * (canvas.width - 4) / 10 - 1);
-            }
-
-            for (let i = 0; i < snake.length; i++) {
-                snake[i] = { x: rndX - i, y: rndY };
-                map[rndX - i][rndY] = 2;
-
-            }
-
-
-
-            return map;
+        for (let i = this.x + (5 * this.size); i >= this.x; i -= this.size) {
+            snake.sections.push(i + ',' + this.y);
         }
-
-        draw() {
-
-            for (let x = 0; x < map.length; x++) {
-                for (let y = 0; y < map[0].length; y++) {
-                    if (map[x][y] === 2) {
-                        ctx.fillStyle = 'orange';
-                        ctx.fillRect(x * 10, y * 10 + 20, 10, 10);
-                    }
-                }
-            }
-        }
-
-
-
-
     }
 
-    let generateSnake = new GenerateSnake();
-    generateSnake.generateSnake(map);
-    generateSnake.draw();
+    move() {
+        switch (snake.direction) {
+            case 'up':
+                snake.y -= snake.size;
+                break;
+            case 'down':
+                snake.y += snake.size;
+                break;
+            case 'left':
+                snake.x -= snake.size;
+                break;
+            case 'right':
+                snake.x += snake.size;
+                break;
+        }
+        this.checkCollision();
+        this.checkGrowth();
+        this.sections.push(this.x + ',' + this.y);
+    }
+
+    draw() {
+        for (let i = 0; i < this.sections.length; i++) {
+            this.drawSection(this.sections[i].split(','));
+        }
+    }
+
+    drawSection() {
+        game.drawBox(parseInt(this.section[0]), parseInt(this.section[1]), this.size, this.color);
+    }
+
+    checkCollision() {
+        if (this.isCollision(this.x, this.y) === true) {
+            game.stop();
+        }
+    }
+
+    isCollision() {
+        if (this.x < this.size / 2 ||
+            this.x > canvas.width ||
+            this.y < this.size / 2 ||
+            this.y > canvas.height ||
+            this.sections.indexOf(this.x + ',' + this.y) >= 0) {
+            return true;
+        }
+    }
+
+    checkGrowth() {
+        if (this.x == food.x && this.y == food.y) {
+            game.score++;
+            if (game.score % 5 == 0 && game.fps < 60) {
+                game.fps++;
+            }
+            food.set();
+        } else {
+            this.sections.shift();
+        }
+    }
 
 
+}
 
 
-
+let snake = new Snake(5);
 
