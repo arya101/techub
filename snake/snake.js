@@ -1,35 +1,36 @@
 let canvas = document.getElementById("the-game");
 let context = canvas.getContext("2d");
 context.canvas.width = 800;
+canvas.height = 700;
+
 
 class Game {
-    constructor(x, y, size, color) {
-        this.score = 0;
-        this.fps = 8;//frames per second
-        this.over = false;
-        this.message = null;
-        this.x = x;
-        this.y = y;
-        this.size = size;
-        this.color = color;
-
+    constructor(x, y, size, color){
+    this.score = 0;
+    this.fps = 8;
+    this.over = false;
+    this.message = null;
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.color = color;
     }
 
-    start() {
-        this.over = false;
-        this.message = null;
-        this.score = 0;
-        this.fps = 8;
-        snake.init();
-        food.set();
-    }
+    // start() {
+    //     this.over = false;
+    //     this.message = null;
+    //     this.score = 0;
+    //     this.fps = 8;
+    //     snake.init();
+    //     food.set();
+    //   }
 
-    stop() {
-        this.over = true;
-        this.message = 'GAME OVER - PRESS SPACEBAR';
-    }
+    //   stop() {
+    //     this.over = true;
+    //     this.message = 'GAME OVER - PRESS SPACEBAR';
+    //   }
 
-    drawBox() {
+      drawBox() {
         context.fillStyle = this.color;
         context.beginPath();
         context.moveTo(this.x - (this.size / 2), this.y - (this.size / 2));
@@ -38,118 +39,69 @@ class Game {
         context.lineTo(this.x - (this.size / 2), this.y + (this.size / 2));
         context.closePath();
         context.fill();
-    }
+      }
 
-    //drawScore
+    //   drawMessage() {
+    //     if (game.message !== null) {
+    //       context.fillStyle = '#00F';
+    //       context.strokeStyle = '#FFF';
+    //       context.font = (canvas.height / 10) + 'px Impact';
+    //       context.textAlign = 'center';
+    //       context.fillText(game.message, canvas.width/2, canvas.height/2);
+    //       context.strokeText(game.message, canvas.width/2, canvas.height/2);
+    //     }
+      //}
 
-    drawMessage() {
-        if (this.message !== null) {
-            context.fillStyle = '#00F';
-            context.strokeStyle = '#FFF';
-            context.font = (canvas.height / 10) + 'px Impact';
-            context.textAlign = 'center';
-            context.fillText(game.message, canvas.width / 2, canvas.height / 2);
-            context.strokeText(game.message, canvas.width / 2, canvas.height / 2);
-        }
-    }
-
-    resetCanvas() {
+      clearRect() {
         context.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
+      }
 
 
 
 }
 
-
-let game = new Game(10, 10, canvas.width, 'seagreen');
+let game = new Game(0,0,500,'seagreen');
+game.drawBox()
+game.over = true;
 
 
 
 class Snake {
-    constructor(size) {
-        this.size = size;
-        this.x = null;
-        this.y = null;
-        this.color = "#0F0";
-        this.direction = 'left';
-        this.sections = [];
-        this.section = [];
+    constructor(number){
+    this.number = number;
+    this.size = canvas.width / 40,
+    this.x = null;
+    this.y = null;
+    this.color = '#red';
+    this.direction = 'left';
+    this.sections = [];
+
     }
 
     init() {
         this.sections = [];
         this.direction = 'left';
         this.x = canvas.width / 2 + this.size / 2;
-        this.y = canvas.height / 2 + this.size / 2;
-        
-        for (let i = this.x + (5 * this.size); i >= this.x; i -= this.size) {
-            snake.sections.push(i + ',' + this.y);
+        this.y = canvas.height /2 + this.size / 2;
+        for (let i = this.x + (this.number * this.size); i >= this.x; i-=this.size) {
+          this.sections.push(i + ',' + this.y);
         }
-    }
+      }
 
-    move() {
-        switch (snake.direction) {
-            case 'up':
-                snake.y -= snake.size;
-                break;
-            case 'down':
-                snake.y += snake.size;
-                break;
-            case 'left':
-                snake.x -= snake.size;
-                break;
-            case 'right':
-                snake.x += snake.size;
-                break;
-        }
-        this.checkCollision();
-        this.checkGrowth();
-        this.sections.push(this.x + ',' + this.y);
-    }
+    //   drawSection() {
+    //     game.drawBox(parseInt(section[0]), parseInt(section[1]), snake.size, snake.color);
+    //   }
 
-    draw() {
+      draw() {
         for (let i = 0; i < this.sections.length; i++) {
-            this.drawSection(this.sections[i].split(','));
-        }
-    }
-
-    drawSection() {
-        game.drawBox(parseInt(this.section[0]), parseInt(this.section[1]), this.size, this.color);
-    }
-
-    checkCollision() {
-        if (this.isCollision(this.x, this.y) === true) {
-            game.stop();
-        }
-    }
-
-    isCollision() {
-        if (this.x < this.size / 2 ||
-            this.x > canvas.width ||
-            this.y < this.size / 2 ||
-            this.y > canvas.height ||
-            this.sections.indexOf(this.x + ',' + this.y) >= 0) {
-            return true;
-        }
-    }
-
-    checkGrowth() {
-        if (this.x == food.x && this.y == food.y) {
-            game.score++;
-            if (game.score % 5 == 0 && game.fps < 60) {
-                game.fps++;
-            }
-            food.set();
-        } else {
-            this.sections.shift();
-        }
-    }
-
+          this.sections[i].split(',');
+          game.drawBox(parseInt(this.sections[0]), parseInt(this.sections[1]), snake.size, snake.color);
+        }    
+      }
 
 }
 
-
-let snake = new Snake(5);
+let snake = new Snake(4);
+snake.init()
+snake.draw()
 
