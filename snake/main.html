@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8" />
-<title>Snake Game</title>
 
-<link rel="stylesheet" href="page.css" type="text/css">
+<head>
+    <meta charset="utf-8" />
+    <title>Snake Game</title>
+
+    <link rel="stylesheet" href="page.css" type="text/css">
 </head>
+
 <body>
 
 
-<div>
-  <canvas id="the-game" width="320" height="240">
-</div>
+    <div>
+        <canvas id="the-game" width="320" height="240" style="border: 2px solid black">
+    </div>
+    <div id="right">
+        <form>
+           <label> Enter board size: <input type="text" name="boar-size" value=500 class="menu" id="boardSize"></label><br>
+            <select class="menu" id="level">
+                <option value="0">Select Level</option>
+                <option value="1">Novice</option>
+                <option value='2'>Intermediate</option>
+                <option value="3">Hard</option>
+            </select>
+        <br>
+            <label>Enter Number of Apples: <input type="text" name="apples" value=1 class="menu" id="appleNumber"></label><br>
+            <label>Enter Snake's Length: <input type="text" name="snake-length" value=5 class="menu" id="snakeLength"></label><br>
+            <!-- <input type="submit" value="Submit">  -->
+            <h3 id="high-score" class="menu">High Score: </h3>
+        </form>
 
+       
+    </div>
 
-
-<!-- <script type="text/javascript" src="game.js"></script> -->
-<script type="text/javascript" src="snake.js"></script>
+    <script src="variables.js"></script>
+    <script src="SnakeClass.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <script src="UI.js"></script>
 
 </body>
+
 </html>
