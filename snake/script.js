@@ -75,7 +75,7 @@ class Food {
   }
   
   draw() {
-    this.drawSection(this.sections[i].split(','));
+    
 
     game.drawBox(this.x, this.y, this.size, this.color);
   
