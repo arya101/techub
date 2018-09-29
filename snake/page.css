@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#the-game{
+    float: left;
+    margin: 20px;
+}
+
+#right{
+    float:right;
+    margin: 20px;
+    padding-right: 40px;
+}
+.menu{
+    border: 2px solid transparent;
+    border-color: #fff transparent transparent transparent;
+    margin-top: 30px;
+    background: lightgray;
+    
+}
