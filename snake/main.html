@@ -15,19 +15,37 @@
         <canvas id="the-game" width="320" height="240" style="border: 2px solid black">
     </div>
     <div id="right">
+
+        <form id="form1">
+           <label for="boardSize"> Enter board size: </label><input type="text" name="board-size" value=500 class="menu" id="boardSize">
+           <input type="submit" id="bt1">
+            
+ 
+        </form>
+        <br>
         <form>
-           <label> Enter board size: <input type="text" name="boar-size" value=500 class="menu" id="boardSize"></label><br>
             <select class="menu" id="level">
                 <option value="0">Select Level</option>
                 <option value="1">Novice</option>
                 <option value='2'>Intermediate</option>
                 <option value="3">Hard</option>
             </select>
+            </form>
         <br>
-            <label>Enter Number of Apples: <input type="text" name="apples" value=1 class="menu" id="appleNumber"></label><br>
-            <label>Enter Snake's Length: <input type="text" name="snake-length" value=5 class="menu" id="snakeLength"></label><br>
-            <!-- <input type="submit" value="Submit">  -->
+        <form>
+            <label>Enter Number of Apples: <input type="text" name="apples" value=1 class="menu" id="appleNumber">
+                <input type="submit" value="Submit" > </label>
+            </form>
+            <br>
+            <form >
+            <label>Enter Snake's Length: <input type="text" name="snake-length" value=5 class="menu" id="snakeLength">
+                <input type="submit" value="Submit" id="length" > 
+            </label><br>
+        </form>
+            
             <h3 id="high-score" class="menu">High Score: </h3>
+            
+
         </form>
 
        
