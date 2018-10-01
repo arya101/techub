@@ -63,11 +63,22 @@ class Snake {
     }
 
     checkGrowth() { //allow the snake to grow if it is on the same position as a piece of food
-        if (this.x == food.x && this.y == food.y) {
+        let tmp = food.arr.findIndex(function(element){
+            if (snake.x == element.x && snake.y == element.y){
+                return element;
+            }
+            
+        });
+
+        
+
+
+        if (tmp != -1) {
             game.score += 10;
             if (game.score % 100 == 0 && game.fps < 60) {
                 game.fps++;
             }
+            food.arr.splice(tmp, 1);
             food.set();
         } else {
             this.sections.shift();
