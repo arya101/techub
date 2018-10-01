@@ -35,7 +35,7 @@ game = {
   
   drawScore: function() {  //displays the score almost full hight of the canvas
     context.fillStyle = '#999';
-    context.font = (canvas.height) + 'px Impact, sans-serif';
+    context.font = (canvas.height / 15) + 'px Impact, sans-serif';
     context.textAlign = 'center';
     context.fillText(game.score, canvas.width / 2, canvas.height * 0.9);
   },
@@ -64,22 +64,48 @@ class Food {
     this.x = null;
     this.y = null;
     this.color = '#0FF';
+
   }
   
-
-  
-  set() {
+  init() {
     this.size = snake.size;
+
+    for(let i = 0; i <apples; i++){
+      this.x = (Math.ceil(Math.random() * 10) * snake.size * 4) - snake.size / 2;
+      this.y = (Math.ceil(Math.random() * 10) * snake.size * 3) - snake.size / 2;
+
+      this.arr.push({x:this.x, y:this.y});
+    }
+  }
+
+  set() {
     this.x = (Math.ceil(Math.random() * 10) * snake.size * 4) - snake.size / 2;
     this.y = (Math.ceil(Math.random() * 10) * snake.size * 3) - snake.size / 2;
-  }
-  
-  draw() {
-    
 
-    game.drawBox(this.x, this.y, this.size, this.color);
-  
+    this.arr.push({x:this.x, y:this.y});
   }
+
+  draw() {
+    for(let i = 0; i < this.arr.length; i++){
+      game.drawBox(this.arr[i].x, this.arr[i].y, snake.size,  this.color);
+    }
+  }
+  
+
+
+  
+  // set() {
+  //   this.size = snake.size;
+  //   this.x = (Math.ceil(Math.random() * 10) * snake.size * 4) - snake.size / 2;
+  //   this.y = (Math.ceil(Math.random() * 10) * snake.size * 3) - snake.size / 2;
+  // }
+  
+  // draw() {
+   
+
+  //   game.drawBox(this.x, this.y, this.size, this.color);
+  
+  // }
   
 };
 
@@ -145,11 +171,11 @@ let requestAnimationFrame = window.requestAnimationFrame ||
 function loop() {
   if (game.over == false) {
     game.resetCanvas(); //Clears the canvas of all drawings
-    game.drawScore();//Draws the game.score into the background of our game board
-    snake.move();//Calculates the new head position of our snake
-    food.draw();//Places a piece of food on the game board
+    game.drawScore();  //Draws the game.score into the background of our game board
+    snake.move();  //Calculates the new head position of our snake
+    food.draw();       //Places a piece of food on the game board
     snake.draw();//Draws our snake by iterating through the snake.sections array
-    game.drawMessage();//Displays game messages on screen, used for GAME OVER message
+    game.drawMessage();  //Displays game messages on screen, used for GAME OVER message
   
   } else if(game.over == true && game.score!== 0 && game.score > localStorage.getItem("high")){
     localStorage.setItem("high", JSON.stringify(game.score));
