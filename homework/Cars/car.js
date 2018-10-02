@@ -4,7 +4,7 @@ let Car = function(name,color,brand){
     this.setColor =color;
     this.setBrand=brand;
     this.save=function(){
-        console.log(`saving  ${this.setName} ,color - ${this.setColor} ,brand - ${this.setBrand}`)
+        alert(`saving  ${this.setName} ,color - ${this.setColor} ,brand - ${this.setBrand}`)
     }
 }
 // funqciis gamodzaxeba
